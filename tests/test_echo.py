@@ -18,7 +18,7 @@ import subprocess
 class TestEcho(unittest.TestCase):
     def setUp(self):
         """Called by parent class ONCE before all tests are run"""
-        self.parser = echo.create_parser
+        self.parser = echo.create_parser()
 
     def test_help(self):
         """Testing help option"""
@@ -26,10 +26,10 @@ class TestEcho(unittest.TestCase):
             ["python", "./echo.py", "-h"],
             stdout = subprocess.PIPE)
         stdout, _ = process.communicate()
-        usage = open("./USAGE", "r").read()
-​
-        self.assertEquals(stdout.decode(), usage)
+        with open("./USAGE", "r") as f:
+            usage = f.read()
 
+        self.assertEqual(stdout.decode(), usage)
 
     def test_lower_short(self):
         """Check if short option '-l' performs lowercasing"""
@@ -37,7 +37,7 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.lower)
         result = echo.main(args)
-        self.assertEquals(result, "hello world")
+        self.assertEqual(result, "hello world")
     
     def test_upper_short(self):
         """Check if short option '-u- performs uppercasing"""
@@ -45,7 +45,7 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.upper)
         result = echo.main(args)
-        self.assertEquals(result, "HELLO WORLD")
+        self.assertEqual(result, "HELLO WORLD")
     
     def test_lower_long(self):
         """Check if long option '--lower' performs lowercasing"""
@@ -53,7 +53,7 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.lower)
         result = echo.main(args)
-        self.assertEquals(result, "hello world")
+        self.assertEqual(result, "hello world")
     
     def test_upper_long(self):
         """Check if long option '--upper' performs uppercasing"""
@@ -61,7 +61,7 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.upper)
         result = echo.main(args)
-        self.assertEquals(result, "HELLO WORLD")
+        self.assertEqual(result, "HELLO WORLD")
 
     def test_title_short(self):
         """"""
@@ -69,7 +69,7 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.title)
         result = echo.main(args)
-        self.assertEquals(result, "Hello World")
+        self.assertEqual(result, "Hello World")
     
     def test_title_long(self):
         """"""
@@ -77,7 +77,7 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.title)
         result = echo.main(args)
-        self.assertEquals(result, "Hello World")
+        self.assertEqual(result, "Hello World")
     
     def test_all(self):
         """"""
@@ -85,7 +85,7 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.upper)
         result = echo.main(args)
-        self.assertEquals(result, "HELLO WORLD")
+        self.assertEqual(result, "HELLO WORLD")
     
     def test_two(self):
         """"""
@@ -93,13 +93,13 @@ class TestEcho(unittest.TestCase):
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.upper)
         result = echo.main(args)
-        self.assertEquals(result, "HELLO WORLD")
+        self.assertEqual(result, "HELLO WORLD")
     
     def test_none(self):
         """"""
         args = ["hello world"]
         result = echo.main(args)
-        self.assertEquals(result, "hello world")
+        self.assertEqual(result, "hello world")
 
 
 if __name__ == '__main__':
