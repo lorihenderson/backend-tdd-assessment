@@ -14,7 +14,7 @@ import unittest
 import subprocess
 
 
-# Student shall complete this TestEcho class so that all tests run and pass.
+# Stu dent shall complete this TestEcho class so that all tests run and pass.
 class TestEcho(unittest.TestCase):
     def setUp(self):
         """Called by parent class ONCE before all tests are run"""
