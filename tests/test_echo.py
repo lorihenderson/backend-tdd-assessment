@@ -64,7 +64,7 @@ class TestEcho(unittest.TestCase):
         self.assertEqual(result, "HELLO WORLD")
 
     def test_title_short(self):
-        """"""
+        """Check if short option '-t' performs titlecasing"""
         args = ["-t", "hello world"]
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.title)
@@ -72,7 +72,7 @@ class TestEcho(unittest.TestCase):
         self.assertEqual(result, "Hello World")
     
     def test_title_long(self):
-        """"""
+        """Check if long option '--title' performs titlecasing"""
         args = ["--title", "hello world"]
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.title)
@@ -80,15 +80,15 @@ class TestEcho(unittest.TestCase):
         self.assertEqual(result, "Hello World")
     
     def test_all(self):
-        """"""
+        """Testing all args"""
         args = ["-tul", "hello world"]
         namespace = self.parser.parse_args(args)
-        self.assertTrue(namespace.upper)
+        self.assertTrue(namespace.title)
         result = echo.main(args)
-        self.assertEqual(result, "HELLO WORLD")
+        self.assertEqual(result, "Hello World")
     
     def test_two(self):
-        """"""
+        """Testing two args"""
         args = ["-ul", "hellO wOrld"]
         namespace = self.parser.parse_args(args)
         self.assertTrue(namespace.upper)
@@ -96,7 +96,7 @@ class TestEcho(unittest.TestCase):
         self.assertEqual(result, "HELLO WORLD")
     
     def test_none(self):
-        """"""
+        """Testing no args"""
         args = ["hello world"]
         result = echo.main(args)
         self.assertEqual(result, "hello world")
